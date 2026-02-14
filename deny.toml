@@ -1,0 +1,18 @@
+# cargo-deny configuration for micro-gpt
+# https://embarkstudios.github.io/cargo-deny/
+
+[licenses]
+allow = [
+    "MIT",
+]
+confidence-threshold = 0.8
+
+[bans]
+multiple-versions = "warn"
+wildcards = "allow"
+highlight = "all"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
