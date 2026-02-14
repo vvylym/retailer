@@ -38,11 +38,11 @@ This platform implements core online-store features as independent services: use
 ```bash
 git clone https://github.com/vvylym/retailer.git
 cd retailer
-make up
+make docker-up
 ```
 
 ```bash
-make down
+make docker-down
 ```
 
 ## Usage
@@ -52,8 +52,7 @@ make down
 ## Development
 
 ```bash
-make build
-make test
+make ci
 ```
 
 ## Contributing

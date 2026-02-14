@@ -3,7 +3,7 @@ SHELL := /bin/bash
 CARGO ?= cargo
 MAKE ?= make
 
-.PHONY: check fmt fmt-check clippy test deny doc machete ci clean
+.PHONY: check fmt fmt-check clippy test deny doc machete ci clean docker-up docker-down
 
 check:
 	$(CARGO) check --workspace --all-features --all-targets
@@ -43,3 +43,9 @@ ci:
 	$(MAKE) doc
 	$(MAKE) deny
 	$(MAKE) machete
+
+docker-up:
+	docker compose up -d
+
+docker-down:
+	docker compose down -v
