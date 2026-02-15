@@ -1,0 +1,49 @@
+# Rust build artifacts
+target/
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Docker and orchestration (not needed inside the image)
+docker/
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# IDE and editor
+.idea/
+.vscode/
+.cursor/
+*.iml
+
+# Local config and tooling (build uses container toolchain only)
+Makefile
+.clippy.toml
+rustfmt.toml
+deny.toml
+
+# Docs and project notes (optional; remove if you need README in the image)
+*.md
+!README.md
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.circleci/
+.travis.yml
+Jenkinsfile
+
+# Misc
+*.log
+*.tmp
+*.swp
+*~
+.DS_Store
+Thumbs.db

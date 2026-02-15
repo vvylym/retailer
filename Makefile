@@ -44,6 +44,9 @@ ci:
 	$(MAKE) deny
 	$(MAKE) machete
 
+docker-build:
+	docker compose build
+
 docker-up:
 	docker compose up -d
 

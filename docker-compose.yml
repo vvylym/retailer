@@ -1,0 +1,99 @@
+services:
+  # --- Microservices (Rust) ---
+  users:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: users
+    ports:
+      - "8081:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  catalog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: catalog
+    ports:
+      - "8082:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  cart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: cart
+    ports:
+      - "8083:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  orders:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: orders
+    ports:
+      - "8084:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  payments:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: payments
+    ports:
+      - "8085:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  notifications:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: notifications
+    ports:
+      - "8086:8080"
+    environment:
+      - RUST_LOG=info
+    restart: unless-stopped
+
+  # --- Observability ---
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/config.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_HTTP_PORT=3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  grafana_data:
